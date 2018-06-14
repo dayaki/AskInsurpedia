@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Questions</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="no-content" *ngIf="!hasQuestion">
+    <p>No Questions to display, why you ask some questions.</p>
+  </div>
+  
+  <div class="questions" *ngIf="hasQuestion">
+    <div class="question" *ngFor="let question of questions">
+      <div class="top">
+        <p>Question asked <span>-&nbsp;&nbsp;&nbsp;{{ question.updated_at | amTimeAgo }}</span></p>
+      </div>
+      <h2 tappable (click)="details(question)">{{ question.question }}</h2>
+      <div class="tags">
+        <div class="tag">
+          <span>{{ question.category }}</span>
+        </div>
+      </div>
+      <!-- <button ion-button (click)="details(question)">
+        <ion-icon md="md-create"></ion-icon>
+        Answer
+      </button> -->
+    </div>
+    <!-- END .question -->
+  </div>
+</ion-content>

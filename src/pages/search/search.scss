@@ -1,0 +1,122 @@
+page-search {
+  ion-icon {
+      font-size: 3rem;
+      color: #3c4350;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 1.5rem;
+  }
+  ion-input {
+      width: 70%;
+      display: block;
+      margin: 5rem auto;
+      color: #696d6f;
+      border-bottom: 4px solid #b7ce63;
+      text-align: center;
+      font-size: 2.5rem;
+  }
+  ion-searchbar {
+      margin-top: 6rem;
+  }
+  .searchbar-input {
+      box-shadow: none !important;
+      border-bottom: 2px solid #b7ce63;
+      padding: 2px 5px !important;
+  }
+  .searchbar-md .searchbar-search-icon {
+      display: none;
+  }
+  .text-input {
+      height: 4rem;
+      margin: 0px 8px;
+          &::-webkit-input-placeholder {
+              font-family: "Raleway", sans-serif;
+              font-size: 3rem;
+              color: #b3bdc2;
+              text-align: center;
+          }
+  }
+  .search-results {
+    margin-top: 0rem;
+    padding-top: 2rem;
+      .question {
+        border-top: 5px solid #E5E5E5;
+        padding: 1rem 1.5rem;
+        margin-top: 1rem;
+          &:first-child {
+            border-top: none;
+            margin-top: 0rem;
+          }
+          .top {
+              p {
+                color: #989898;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 1.1rem;
+                margin: 0;
+                  span {
+                    display: inline-block;
+                    margin-left: 2%;
+                  }
+              }
+          }
+          h2 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0.8rem 0rem 0rem;
+            line-height: 2.3rem;
+          }
+          .user {
+            margin-top: -5px;
+              img {
+                width: 10%;
+                border-radius: 8rem;
+                vertical-align: text-bottom;
+              }
+              p {
+                display: inline-block;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 1.5rem;
+                padding-left: 0.5rem;
+                color: #575757;
+                margin: 1rem 0;
+                  span {
+                    display: block;
+                    font-size: 1.2rem;
+                    color: #95989A;
+                  }
+              }
+          }
+          .txt {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.5rem;
+            color: #393939;
+          }
+      }
+      // ul {
+      //   padding: 0;
+      //   margin: 0;
+      //     li {
+      //       list-style: none;
+      //       padding: 1.5rem 1rem;
+      //       border-bottom: 1px solid rgba(245, 245, 245, .5);
+      //         h4 {
+      //           font-family: "Source Sans Pro", sans-serif;
+      //           font-size: 1.6rem;
+      //           font-weight: 500;
+      //           color: #343638;
+      //           margin: 0;
+      //         }
+      //         p {
+      //           font-family: "Source Sans Pro", sans-serif;
+      //           font-size: 1.4rem;
+      //           font-weight: 300;
+      //           color: #a7b0b5;
+      //           margin: 0;
+      //           margin-top: 4px;
+      //         }
+      //     }
+      // }
+  }
+}

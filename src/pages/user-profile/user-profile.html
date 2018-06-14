@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ user?.fname }} {{ user?.lname }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile">
+    <div class="info">
+      <img src="assets/img/user-photo.png" *ngIf="!user?.photo">
+      <img src="{{ user?.photo }}" *ngIf="user?.photo">
+      <h3>{{ user?.fname }} {{ user?.lname }}</h3>
+      <p>{{ email }}</p>
+    </div>
+  </div>
+
+  <div class="details" *ngIf="categories">
+    <h4>Topics followed</h4>
+    <ul>
+      <li *ngFor="let data of categories">{{ data }}</li>
+    </ul>
+  </div>
+
+  <!-- <div class="details">
+    <h4>Bio</h4>
+    <div class="txt">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore tempora et debitis odit perspiciatis obcaecati dolor sit, ut dolorum sapiente necessitatibus eum. Provident quidem modi reiciendis odit aliquam fuga molestias!
+    </div>
+  </div> -->
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-content>
+  <div class="tags">
+    <div class="tag" *ngFor="let category of categories">
+      <span>{{ category }}</span>
+    </div>
+  </div>
+  <div class="question">
+    <h2>{{ question?.question }}</h2>
+    <div class="user">
+      <img src="assets/img/user-photo.png" *ngIf="!question.user?.photo">
+      <img src="{{ question.user?.photo }}" *ngIf="question.user?.photo">
+      <p>{{ question.user?.fname }} {{ question.user?.lname }} <span>Asked {{ question?.posted }}</span></p>
+    </div>
+    <div class="txt" tappable (click)="details(question)">
+      {{ question?.question }}
+    </div>
+    <!-- <button ion-button (click)="openComment(question.id)" *ngIf="question.comments.length < 1">
+      <ion-icon md="md-create"></ion-icon>
+      Answer
+    </button> -->
+  </div>
+
+  <div class="no-answer" *ngIf="question.comments?.length < 1 && question?.user_id == user?.id">
+      <img src="assets/img/trending.png">
+      <p>No answers yet.</p>
+  </div>
+
+  <div class="no-answer" *ngIf="question.comments?.length < 1 && question?.user_id != user?.id">
+    <!-- <img src="assets/img/trending.png">
+    <p>No answers yet.</p> -->
+    <div class="wrapper">
+      <img src="{{ user?.photo }}" *ngIf="user?.photo">
+      <img src="assets/img/user-photo.png" *ngIf="!user?.photo">
+      <h4>{{ user?.fname }}, can you answer this question?</h4>
+      <p>People are searching for a better answer to this question.</p>
+      <button ion-button clear (click)="openComment(question.id)">
+        Answer
+      </button>
+    </div>
+  </div>
+
+  <div class="comments">
+    <div class="comment" *ngFor="let comment of question.comments">
+      <div class="user">
+        <img src="assets/img/user-photo.png" *ngIf="!comment.user?.photo">
+        <img src="{{ comment.user?.photo }}" *ngIf="comment.user?.photo">        
+        <p>{{ comment.user?.fname }} {{ comment.user?.lname }} <span>{{ comment?.created_at | amFromUtc | amTimeAgo }}</span></p>
+      </div>
+      <div class="txt">
+        {{ comment?.comment }}
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="reply" tappable (click)="openComment(question.id)" *ngIf="question.comments.length > 0">
+    <img src="assets/img/user-photo.png" *ngIf="!user?.photo">
+    <img src="{{ user?.photo }}" *ngIf="user?.photo">
+    <p>Add a reply...</p>
+  </div> -->
+
+</ion-content>
+
+<ion-footer>
+  <div class="reply" tappable (click)="openComment(question.id)" *ngIf="question.comments.length > 0">
+    <img src="assets/img/user-photo.png" *ngIf="!user?.photo">
+    <img src="{{ user?.photo }}" *ngIf="user?.photo">
+    <p>Add a reply...</p>
+  </div>
+  <button ion-button clear outline navPop>
+    <ion-icon name="md-close"></ion-icon>
+  </button>
+</ion-footer>

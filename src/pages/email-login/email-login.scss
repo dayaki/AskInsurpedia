@@ -1,0 +1,31 @@
+page-email-login {
+    .form {
+      width: 85%;
+      display: block;
+      margin: 5rem auto;
+        p {
+          border-bottom: 1px solid #dedede;
+          margin-bottom: 5rem;
+            ion-label {
+              font-family: 'Source Sans Pro', sans-serif;
+            }
+            .text-input {
+              margin: 13px 0px;
+              font-family: 'Source Sans Pro', sans-serif;
+            }
+        }
+        .button {
+          width: 70%;
+          height: 5.5rem;
+          display: block;
+          margin: 3rem auto 0;
+          font-family: 'Source Sans Pro', sans-serif;
+          font-weight: 600;
+          box-shadow: none;
+          text-transform: initial;
+          font-size: 1.7rem;
+          background: #364F6B;
+          border-radius: 0px;
+        }
+    }
+}

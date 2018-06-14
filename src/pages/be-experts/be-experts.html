@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Become An Expert</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="form">
+    <div class="inputs">
+      <ion-label stacked>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+    </div>
+    <div class="inputs" ion-item>
+      <ion-label>Specialty</ion-label>
+      <ion-select [(ngModel)]="specialty" multiple>
+        <ion-option>Insurance</ion-option>
+        <ion-option>Annuity and Investments</ion-option>
+        <ion-option>Contracts and Liabilities</ion-option>
+        <ion-option>Wills and Trusts</ion-option>
+        <ion-option>Pensions</ion-option>
+      </ion-select>
+    </div>
+    <div class="inputs" ion-item>
+      <ion-label>Years of Experience</ion-label>
+      <ion-select [(ngModel)]="experience">
+        <ion-option>1 - 3 Years</ion-option>
+        <ion-option>4 - 6 Years</ion-option>
+        <ion-option>7 years above</ion-option>
+      </ion-select>
+    </div>
+    <div class="inputs" ion-item>
+      <ion-label>Register as a Consultant?</ion-label>
+      <ion-select [(ngModel)]="consultant">
+        <ion-option>Yes</ion-option>
+        <ion-option>No</ion-option>
+      </ion-select>
+    </div>
+    <div class="inputs">
+      <!-- <ion-label stacked>Register as a Consultant?</ion-label> -->
+      <ion-textarea placeholder="A brief Bio" [(ngModel)]="bio"></ion-textarea>
+    </div>
+
+    <button ion-button [disabled]="!name || !specialty || !experience || !bio" (click)="ngSubmit()">Submit</button>
+  </div>
+</ion-content>  

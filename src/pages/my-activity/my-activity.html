@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Questions</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="no-content" *ngIf="!hasActivity">
+    <p>You have no activities, start by asking some questions.</p>
+  </div>
+
+  <div class="questions" *ngIf="hasActivity">
+    <div class="question" *ngFor="let question of questions">
+      <div class="top">
+        <p>Question asked <span>-&nbsp;&nbsp;&nbsp;{{ question.updated_at | amTimeAgo }}</span></p>
+      </div>
+      <h2 tappable (click)="details(question)">{{ question.question }}</h2>
+    </div>
+    <!-- END .question -->
+  </div>
+</ion-content>

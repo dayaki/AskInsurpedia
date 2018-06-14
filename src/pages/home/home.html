@@ -1,17 +1,75 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="search()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/img/logo-small.png">
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="askQuestion()">
+        <ion-icon name="md-add"></ion-icon>
+        Ask
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+<ion-content>
+  <div class="top-header">
+    <div class="mini-profile">
+      <img src="{{ user?.photo }}" *ngIf="user?.photo">
+      <img src="assets/img/user-photo.png" *ngIf="!user?.photo">
+      <span>{{ user?.fname }} {{ user?.lname?.charAt(0, 1) }}.</span>
+    </div>
+    <button ion-button clear outline (click)="askQuestion()">What is your question?</button>
+  </div>
+
+  <div class="experts-wrapper">
+    <h4>Featured Experts</h4>
+    <ion-slides #slider slidesPerView="2" freeMode="true" pager="false" autoplay="2000">
+      <ion-slide *ngFor="let slide of slides">
+        <img src="{{ slide.imageUrl }}">
+        <p>{{ slide.name }} <span>{{ slide.position }}</span></p>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="no-content" *ngIf="!hasContent">
+    <p>No Questions to display.</p>
+  </div>
+
+  <div class="questions" *ngIf="hasContent">
+    <div class="question" *ngFor="let question of questions">
+      <div class="top">
+        <p>Question asked <span>-&nbsp;&nbsp;{{ question.updated_at | amFromUtc | amTimeAgo }}</span></p>
+      </div>
+      <h2 tappable (click)="details(question)">{{ question.question }}</h2>
+      <div class="user" tappable (click)="viewUser(question.comments[0].user.id)">
+        <div *ngIf="question.anonymous == 1 && question.comments.length > 0" style="display:inline;">
+          <img src="assets/img/user-photo.png">
+        </div>
+        <div *ngIf="question.anonymous == 0" style="display:inline;">
+          <img src="assets/img/user-photo.png" *ngIf="!question?.comments[0]?.user?.photo && question.comments.length > 0">
+          <img src="{{ question?.comments[0]?.user.photo }}" *ngIf="question?.comments[0]?.user?.photo">
+        </div>
+        <!-- <p *ngIf="question.anonymous === '0'">{{ question?.user?.fname }} {{ question?.user?.lname }} <span>Asked {{ question.posted }}</span></p> -->
+        <p *ngIf="question.comments.length > 0">{{ question?.comments[0]?.user.fname }} {{ question?.comments[0]?.user.lname }} <span>Answered {{ question?.comments[0]?.created_at | amFromUtc | amDateFormat:'MMMM D' }}</span></p>        
+        <!-- <p *ngIf="question.anonymous === '1'">Anonymous <span>Asked {{ question.posted }}</span></p> -->
+      </div>
+      <div class="txt" *ngIf="question.comments.length < 1">
+        No answer yet.
+        <button ion-button clear outline (click)="details(question)">
+          <ion-icon name="md-create"></ion-icon>Answer
+        </button>
+      </div>
+      <div class="txt" tappable (click)="details(question)" *ngIf="question.comments.length > 0">
+        {{ question.comments[0].comment | words : 20 }}
+      </div>
+    </div>
+    <!-- END .question -->
+  </div>
 </ion-content>

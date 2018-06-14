@@ -1,39 +1,48 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
-
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { HttpClientModule } from '@angular/common/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Facebook } from '@ionic-native/facebook';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { AppRate } from '@ionic-native/app-rate';
+import { Camera } from '@ionic-native/camera';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Toast } from '@ionic-native/toast';
+import { LinkedIn } from '@ionic-native/linkedin';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @NgModule({
   declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    MyApp
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      tabsPlacement: 'bottom',
+      backButtonIcon: 'ios-arrow-back-outline',
+      tabsHideOnSubPages: true
+    }),
+    IonicStorageModule.forRoot({
+      name: 'askinsurpedia',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Facebook,
+    SocialSharing, 
+    AppRate, Camera, GooglePlus, Toast, LinkedIn, Keyboard, 
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

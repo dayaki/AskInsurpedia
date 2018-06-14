@@ -1,0 +1,22 @@
+page-cover-risk {
+    .form {
+      padding: 1rem 3rem;
+        .inputs {
+          border-bottom: 1px solid #dedede;
+          margin-bottom: 4rem;
+          padding-left: 0px;
+        }
+        .button {
+          width: 60%;
+          display: block;
+          margin: 0 auto;
+          height: 4.5rem;
+          background: #FC5185;
+          box-shadow: none;
+        }
+    }
+    .item-md.item-block .item-inner {
+      border-bottom: none;
+      padding-left: 0px;
+    }
+}

@@ -1,0 +1,45 @@
+page-tips {
+  .article {
+    width: 100%;
+    display: block;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid rgba(149, 152, 154, .1);
+      &:last-child {
+        border-bottom: none;
+      }
+      .img {
+        width: 100%;
+        display: block;
+        height: 30vh;
+        overflow: hidden;
+          .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgb(21, 145, 161);
+            width: 100%;
+            display: block;
+            height: 30vh;
+            opacity: .3;
+          }
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+      }
+      h3 {
+        margin: 10px 3px 0 6px;
+        font-family: 'Song Myung', sans-serif; 
+        font-size: 2rem;
+        text-transform: capitalize;
+        color: #000;
+        opacity: .7;
+      }
+      p {
+        color: #95989A;
+        font-family: 'Song Myung', sans-serif; 
+        font-size: 1.4rem;
+        margin: 5px 3px 20px 6px;
+      }
+  }
+}

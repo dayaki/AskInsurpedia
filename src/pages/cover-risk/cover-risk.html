@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Cover My Risks</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="form">
+    <div class="inputs">
+      <ion-label stacked>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+    </div>
+    <div class="inputs" ion-item>
+        <!-- WHICH RISKS DO YOU WANT TO COVER -->
+      <ion-label>Risks You Want to Cover</ion-label>
+      <ion-select [(ngModel)]="risks" multiple>
+        <ion-option>Automobile</ion-option>
+        <ion-option>Property</ion-option>
+        <ion-option>Contracts and Liabilities</ion-option>
+        <ion-option>Life and Investments</ion-option>
+        <ion-option>Wills and Trusts</ion-option>
+        <ion-option>Pensions</ion-option>
+      </ion-select>
+    </div>
+    <div class="inputs">
+      <ion-label stacked>Phone</ion-label>
+      <ion-input type="tel" [(ngModel)]="phone"></ion-input>
+    </div>
+    <div class="inputs">
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email"></ion-input>
+    </div>
+    <div class="inputs" ion-item>
+      <ion-label stacked>Preferred Contact Time</ion-label>
+      <ion-datetime displayFormat="D, MMMM - hA" pickerFormat="D MMM: h A" [(ngModel)]="contact" style="padding-left:0px;"></ion-datetime>
+    </div>
+
+    <button ion-button [disabled]="!name || !risks || !contact || !phone || !email" (click)="ngSubmit()">Submit</button>
+  </div>
+</ion-content>

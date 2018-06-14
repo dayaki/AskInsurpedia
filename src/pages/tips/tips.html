@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Askinsurpedia Tips</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="no-content" *ngIf="!hasArticles">
+    <p>No article available, check back later.</p>
+  </div>
+
+  <div class="wrapper" *ngIf="hasArticles">
+    <div class="article" *ngFor="let article of articles">
+      <div class="img" tappable (click)="details(article)">
+        <img src="{{ article.image }}">
+      </div>
+      <h3 tappable (click)="details(article)">{{ article.title }}</h3>
+      <p tappable (click)="details(article)" innerHtml="{{ article.content | words : 30 }}"></p>
+    </div>
+  </div>
+</ion-content>

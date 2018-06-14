@@ -1,0 +1,33 @@
+page-tip-details {
+  img {
+    display: block;
+    width: 100%;
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgb(21, 145, 161);
+        width: 100%;
+        display: block;
+        height: 30vh;
+        opacity: .3;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+  }
+  h3 {
+    margin: 10px;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 2rem;
+    color: #151515;
+    opacity: .7;
+  }
+  div.txt {
+    color: #95989A;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 1.4rem;
+    margin: 5px 10px;
+  }
+}

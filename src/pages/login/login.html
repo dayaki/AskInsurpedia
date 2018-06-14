@@ -1,0 +1,30 @@
+<ion-content>
+  <div class="logo">
+    <img src="assets/img/logo.png">
+    <p>simplifying insurance and wealth risk management.</p>
+  </div>
+
+  <div class="loginBtns">
+    <button ion-button (click)="fbLogin()">
+      <ion-icon name="logo-facebook"></ion-icon>
+      Login with Facebook
+    </button>
+    <button ion-button (click)="linkedinLogin()">
+      <ion-icon name="logo-linkedin"></ion-icon>
+      Login with Linkedin
+    </button>
+    <button ion-button (click)="gLogin()">
+      <ion-icon name="logo-googleplus"></ion-icon>
+      Login with Google+
+    </button>
+    <button ion-button (click)="eLogin()">
+      <ion-icon name="ios-mail-outline"></ion-icon>
+      Login with Email
+    </button>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <button ion-button (click)="register()">Don’t have an account yet?</button>
+</ion-footer>

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Insurance Tips</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="share()">
+        <ion-icon name="md-share"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="img">
+    <div class="overlay"></div>
+    <img src="{{ article.image }}">
+  </div>
+
+  <h3>{{ article.title }}</h3>
+  <div class="txt" innerHtml="{{ article.content }}"></div>
+</ion-content>

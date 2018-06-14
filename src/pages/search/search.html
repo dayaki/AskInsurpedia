@@ -1,0 +1,25 @@
+<ion-content>
+  <ion-icon name="ios-close-outline" navPop></ion-icon>
+
+  <ion-searchbar #searchBar animated="true" [(ngModel)]="searchString" (ionInput)="onInput()" (ionClear)="onCancel()" placeholder="Type questions or categories..."></ion-searchbar>
+
+  <div class="search-results" *ngIf="hasContent">
+    <div class="question" *ngFor="let question of questions">
+      <div class="top">
+        <p>Question asked <span>-&nbsp;&nbsp;&nbsp;{{ question.updated_at | amFromUtc | amTimeAgo }}</span></p>
+      </div>
+      <h2 tappable (click)="details(question)">{{ question.question }}</h2>
+      <div class="user">
+        <img src="assets/img/user-photo.png" *ngIf="!question.user?.photo">
+        <img src="{{ question.user?.photo }}" *ngIf="question.user?.photo">
+        <p>{{ question.user?.fname }} {{ question.user?.lname }} <span>Asked {{ question.posted }}</span></p>
+      </div>
+      <div class="txt" tappable (click)="details(question)">
+        {{ question.question }}
+      </div>
+    </div>
+    <!-- END .question -->
+  </div>
+
+</ion-content>
+   

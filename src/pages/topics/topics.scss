@@ -1,0 +1,34 @@
+page-topics {
+  .scroll-content {
+    background: #F2F2F2;
+    font-family: 'Source Sans Pro', sans-serif;
+      p {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.5rem;
+        text-align: left;
+        opacity: .8;
+        padding: 1px 10px;
+      }
+      .options {
+        margin-top: 3rem;
+      }
+      .item-block {
+        background: transparent;
+      }
+      .item.item-md .checkbox-md {
+        margin: 9px 20px 9px 4px;
+      }
+      .item-md.item-block .item-inner {
+        border-bottom: none;
+      }
+      .button {
+        width: 50%;
+        height: 4.5rem;
+        margin: 5rem auto;
+        display: block;
+        background: #FC5185;
+        color: #fff;
+        // text-transform: capitalize;
+      }
+  }
+}
