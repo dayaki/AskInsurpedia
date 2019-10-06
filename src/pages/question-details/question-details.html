@@ -46,9 +46,7 @@
         <img src="{{ comment.user?.photo }}" *ngIf="comment.user?.photo">        
         <p>{{ comment.user?.fname }} {{ comment.user?.lname }} <span>{{ comment?.created_at | amFromUtc | amTimeAgo }}</span></p>
       </div>
-      <div class="txt">
-        {{ comment?.comment }}
-      </div>
+      <div class="txt" [innerHTML]="comment?.comment"></div>
     </div>
   </div>
 

@@ -6,6 +6,7 @@
   </div>
   <div class="txt">
     <h4>{{ data.content }}</h4>
-    <ion-textarea #focusInput placeholder="Write your answer..." [(ngModel)]="comment"></ion-textarea>
+    <rich-text #focusInput [formControlItem]="comment" placeholderText="Write your answer..."></rich-text>
+    <!-- <ion-textarea #focusInput placeholder="Write your answer..." [(ngModel)]="comment"></ion-textarea> -->
   </div>
 </ion-content>

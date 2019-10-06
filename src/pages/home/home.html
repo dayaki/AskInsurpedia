@@ -48,17 +48,12 @@
         <p>Question asked <span>-&nbsp;&nbsp;{{ question.updated_at | amFromUtc | amTimeAgo }}</span></p>
       </div>
       <h2 tappable (click)="details(question)">{{ question.question }}</h2>
-      <div class="user" tappable (click)="viewUser(question.comments[0].user.id)">
-        <div *ngIf="question.anonymous == 1 && question.comments.length > 0" style="display:inline;">
-          <img src="assets/img/user-photo.png">
-        </div>
-        <div *ngIf="question.anonymous == 0" style="display:inline;">
-          <img src="assets/img/user-photo.png" *ngIf="!question?.comments[0]?.user?.photo && question.comments.length > 0">
+      <div class="user" *ngIf="question.comments.length > 0" tappable (click)="viewUser(question.comments[0].user.id)">
+        <div style="display:inline;">
+          <img src="assets/img/user-photo.png" *ngIf="!question?.comments[0]?.user?.photo">
           <img src="{{ question?.comments[0]?.user.photo }}" *ngIf="question?.comments[0]?.user?.photo">
         </div>
-        <!-- <p *ngIf="question.anonymous === '0'">{{ question?.user?.fname }} {{ question?.user?.lname }} <span>Asked {{ question.posted }}</span></p> -->
-        <p *ngIf="question.comments.length > 0">{{ question?.comments[0]?.user.fname }} {{ question?.comments[0]?.user.lname }} <span>Answered {{ question?.comments[0]?.created_at | amFromUtc | amDateFormat:'MMMM D' }}</span></p>        
-        <!-- <p *ngIf="question.anonymous === '1'">Anonymous <span>Asked {{ question.posted }}</span></p> -->
+        <p>{{ question?.comments[0]?.user.fname }} {{ question?.comments[0]?.user.lname }} <span>Answered {{ question?.comments[0]?.created_at | amFromUtc | amDateFormat:'MMMM D' }}</span></p>        
       </div>
       <div class="txt" *ngIf="question.comments.length < 1">
         No answer yet.
@@ -66,10 +61,7 @@
           <ion-icon name="md-create"></ion-icon>Answer
         </button>
       </div>
-      <div class="txt" tappable (click)="details(question)" *ngIf="question.comments.length > 0">
-        {{ question.comments[0].comment | words : 20 }}
-      </div>
+      <div class="txt" tappable (click)="details(question)" *ngIf="question.comments.length > 0" innerHTML="{{ question.comments[0].comment | words : 20 }}"></div>
     </div>
-    <!-- END .question -->
   </div>
 </ion-content>

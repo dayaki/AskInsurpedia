@@ -1,9 +1,9 @@
 {
   "name": "askinsurpedia",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
   },
+  "type": "ionic-angular",
   "hooks": {},
-  "pro_id": "17cfc57a"
+  "id": "17cfc57a"
 }
