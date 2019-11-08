@@ -1,26 +1,30 @@
-import { HttpClient } from '@angular/common/http';
-import { Storage } from '@ionic/storage';
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { HttpClient } from "@angular/common/http";
+import { Storage } from "@ionic/storage";
+import { Component } from "@angular/core";
+import { IonicPage, NavController } from "ionic-angular";
 
 @IonicPage()
 @Component({
-  selector: 'page-first-time-options',
-  templateUrl: 'first-time-options.html',
+  selector: "page-first-time-options",
+  templateUrl: "first-time-options.html"
 })
 export class FirstTimeOptionsPage {
   user: any;
   categories = [
-    { name: 'Insurance' }, 
-    { name: 'Annuity and Investments' },
-    { name: 'Contracts and Liabilities' }, 
-    { name: 'Wills and Trusts' }, 
-    { name: 'Pensions' }
+    { name: "Insurance" },
+    { name: "Annuity and Investments" },
+    { name: "Contracts and Liabilities" },
+    { name: "Wills and Trusts" },
+    { name: "Pensions" }
   ];
   selectedCategory = Array();
 
-  constructor(public navCtrl: NavController, public storage: Storage, public http: HttpClient) {
-    this.storage.get('user').then((user) => {
+  constructor(
+    public navCtrl: NavController,
+    public storage: Storage,
+    public http: HttpClient
+  ) {
+    this.storage.get("user").then(user => {
       this.user = user.id;
     });
   }
@@ -35,15 +39,16 @@ export class FirstTimeOptionsPage {
   }
 
   isDone() {
-    this.http.post('http://sprypixels.com/demo/askinsurpedia/public/api/user/category/update', {
-      user_id: this.user,
-      category: this.selectedCategory.toString()
-    }).subscribe((data) => {
-      console.log('category updated');
-      this.storage.set('user', data['data']);
-    });
+    this.http
+      .post("http://backend.askinsurpedia.ng/public/api/user/category/update", {
+        user_id: this.user,
+        category: this.selectedCategory.toString()
+      })
+      .subscribe(data => {
+        console.log("category updated");
+        this.storage.set("user", data["data"]);
+      });
 
-    this.navCtrl.setRoot('TabsPage');
+    this.navCtrl.setRoot("TabsPage");
   }
-
 }

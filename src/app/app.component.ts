@@ -1,17 +1,23 @@
-import { HttpClient } from '@angular/common/http';
-import { Storage } from '@ionic/storage';
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpClient } from "@angular/common/http";
+import { Storage } from "@ionic/storage";
+import { Component } from "@angular/core";
+import { Platform } from "ionic-angular";
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: "app.html"
 })
 export class MyApp {
   rootPage: String;
 
-  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, public storage: Storage, public http: HttpClient) {
+  constructor(
+    private platform: Platform,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
+    public storage: Storage,
+    public http: HttpClient
+  ) {
     this.initializeApp();
   }
 
@@ -26,19 +32,21 @@ export class MyApp {
 
   checkStatus() {
     this.storage.ready().then(() => {
-      this.storage.get('user').then((status) => {
+      this.storage.get("user").then(status => {
         if (status === null) {
-          this.rootPage = 'LoginPage';
+          this.rootPage = "LoginPage";
         } else {
-          this.rootPage = 'TabsPage';
+          this.rootPage = "TabsPage";
         }
       });
     });
   }
 
   fetchData() {
-    this.http.get('http://sprypixels.com/demo/askinsurpedia/public/api/questions/all').subscribe((data) => {
-      this.storage.set('questions', data);
-    });
+    this.http
+      .get("http://backend.askinsurpedia.ng/public/api/questions/all")
+      .subscribe(data => {
+        this.storage.set("questions", data);
+      });
   }
 }

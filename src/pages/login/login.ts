@@ -44,7 +44,7 @@ export class LoginPage {
             let newstring = data.name.split(/[ ,]+/);
             let [fname, lname] = newstring;
             this.http
-              .post("http://sprypixels.com/demo/askinsurpedia/public/api/fb", {
+              .post("http://backend.askinsurpedia.ng/public/api/fb", {
                 fname: fname,
                 lname: lname,
                 email: data.email,
@@ -79,41 +79,6 @@ export class LoginPage {
       });
   }
 
-  // Linkedin Login
-  linkedinLogin() {
-    // let load = this.loadingCtrl.create({
-    //   spinner: 'dots',
-    //   content: 'Authenticating...'
-    // });
-    // this.linkedin.login(['r_basicprofile', 'r_emailaddress'], true).then(() => {
-    //   load.present();
-    //   this.linkedin.getRequest('people/~').then((res) =>  {
-    //     this.linkedin.getRequest('people/~:(email_address,picture-url)').then((data) =>  {
-    //       this.http.post('http://sprypixels.com/demo/askinsurpedia/public/api/linkedin', {
-    //         fname: res.firstName,
-    //         lname: res.lastName,
-    //         email: data.emailAddress,
-    //         lid: res.id,
-    //         photo: data.pictureUrl
-    //       }).subscribe((status) => {
-    //         this.storage.set('user', data['data']);
-    //         load.dismiss();
-    //         if (status['firstTime'] == true ) {
-    //           this.sendMail(data['data'].email);
-    //           this.navCtrl.setRoot('FirstTimeOptionsPage');
-    //         } else {
-    //           this.navCtrl.setRoot('TabsPage');
-    //         }
-    //       }, err => {
-    //         load.dismiss();
-    //         console.log('err', err);
-    //         this.toast.showLongBottom('Network error, please again later').subscribe(() => {});
-    //       });
-    //     });
-    //   }).catch(e => console.log(e));
-    // }).catch(e => console.log('Error logging in', e));
-  }
-
   // Google+ Login
   gLogin() {
     let load = this.loadingCtrl.create({
@@ -123,9 +88,10 @@ export class LoginPage {
     this.googlePlus
       .login({})
       .then(res => {
+        console.log("google", res);
         load.present();
         this.http
-          .post("http://sprypixels.com/demo/askinsurpedia/public/api/google", {
+          .post("http://backend.askinsurpedia.ng/public/api/google", {
             fname: res.givenName,
             lname: res.familyName,
             email: res.email,
@@ -157,7 +123,7 @@ export class LoginPage {
 
   sendMail(email) {
     this.http
-      .post("http://sprypixels.com/demo/askinsurpedia/public/api/mail/later", {
+      .post("http://backend.askinsurpedia.ng/public/api/mail/later", {
         email: email
       })
       .subscribe(data => {
