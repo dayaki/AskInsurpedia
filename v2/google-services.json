@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "997352758733",
+    "firebase_url": "https://askinsurpedia-324a2.firebaseio.com",
+    "project_id": "askinsurpedia-324a2",
+    "storage_bucket": "askinsurpedia-324a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997352758733:android:1856bcd16589b72322f884",
+        "android_client_info": {
+          "package_name": "com.askinsurpedia.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997352758733-rdlmqqfs3lq3kps1t0s36idbufu3rpc7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.askinsurpedia.mobile",
+            "certificate_hash": "36b50b1e032aff9a5f2908f22e2149129957f249"
+          }
+        },
+        {
+          "client_id": "997352758733-gdimn32jqni90dvt5d87l1vqp7h970ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC93gni-pfzfcFwfmSfHbFRW4WMS_tOMwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997352758733-gdimn32jqni90dvt5d87l1vqp7h970ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
