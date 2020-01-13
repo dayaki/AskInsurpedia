@@ -1,24 +1,75 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
-import { Switch, AsyncStorage } from "react-native";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { Switch, AsyncStorage, StyleSheet, View } from "react-native";
+import {
+  MaterialCommunityIcons,
+  FontAwesome,
+  Ionicons,
+  AntDesign
+} from "@expo/vector-icons";
 import PickerBox from "react-native-picker-box";
-import { LoadingModal } from "../components/LoadingModal";
+import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import { LoadingModal } from "../components";
 import { API_URL } from "../constants/Helper";
 
 const AskQuestion = ({ navigation }) => {
   const [question, setQuestion] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState([]);
   const [anon, setAnon] = useState(false);
   const [loading, setLoading] = useState(false);
-  const picker = useRef(null);
   let user = [];
 
-  AsyncStorage.getItem("userData").then(data => {
-    user = JSON.parse(data);
+  const categoryItems = [
+    { name: "Insurance", id: 1 },
+    { name: "Contracts and Liabilities", id: 2 },
+    { name: "Annuity and Investments", id: 3 },
+    { name: "Wills and Trust", id: 4 },
+    { name: "Pensions", id: 5 }
+  ];
+  const icon = ({ name, size = 18, style }) => {
+    const flat = StyleSheet.flatten(style);
+    const { color, fontSize, ...styles } = flat;
+    let iconComponent;
+    const Down = <FontAwesome name="caret-down" size={20} color="#c3c3c3" />;
+    const Close = <MaterialCommunityIcons name="close" size={24} color="red" />;
+    const Check = <MaterialCommunityIcons name="check" size={24} color="red" />;
+    const Cancel = (
+      <MaterialCommunityIcons name="close" size={24} color="#fff" />
+    );
+
+    switch (name) {
+      case "keyboard-arrow-down":
+        iconComponent = Down;
+        break;
+      case "close":
+        iconComponent = Close;
+        break;
+      case "check":
+        iconComponent = Check;
+        break;
+      case "cancel":
+        iconComponent = Cancel;
+        break;
+      default:
+        iconComponent = null;
+        break;
+    }
+    return <View style={styles}>{iconComponent}</View>;
+  };
+
+  useEffect(() => {
+    AsyncStorage.getItem("userData").then(data => {
+      user = JSON.parse(data);
+    });
   });
 
   const onSubmit = async () => {
+    const tempCategory = [];
+    categoryItems.forEach(el => {
+      if (category.includes(el.id)) {
+        tempCategory.push(el.name);
+      }
+    });
     setLoading(true);
     const temp = await fetch(`${API_URL}questions/post`, {
       method: "POST",
@@ -29,7 +80,7 @@ const AskQuestion = ({ navigation }) => {
       body: JSON.stringify({
         user: user.id,
         question: question,
-        category: category,
+        category: tempCategory.toString(),
         anonymous: anon
       })
     });
@@ -52,9 +103,6 @@ const AskQuestion = ({ navigation }) => {
         onClose={() => setLoading(false)}
         loadingText="Please wait..."
       />
-      {/* <Container
-        contentContainerStyle={{ alignItems: "center", paddingTop: 30 }}
-      > */}
       <Container>
         <Title>Ask your question here!</Title>
         <TextArea
@@ -64,24 +112,36 @@ const AskQuestion = ({ navigation }) => {
           value={question}
           onChangeText={text => setQuestion(text)}
         />
-        <Category
-          activeOpacity={0.9}
-          onPress={() => picker.current.openPicker()}
-        >
-          <Label>{category === "" ? "Select Category" : category}</Label>
-          <AntDesign name="caretdown" size={12} color="#c8c88c" />
-        </Category>
-        <PickerBox
-          ref={picker}
-          data={[
-            { label: "Insurance", value: "insurance" },
-            { label: "Contracts and Liabilities", value: "contracts" },
-            { label: "Annuity and Investments", value: "annuity" },
-            { label: "Wills and Trust", value: "wills" },
-            { label: "Pensions", value: "pensions" }
-          ]}
-          onValueChange={e => setCategory(e)}
-          selectedValue={category}
+        <SectionedMultiSelect
+          styles={{
+            item: { paddingVertical: 20 },
+            selectToggle: {
+              borderColor: "rgba(222, 222, 222, 0.5)",
+              borderWidth: 1,
+              marginVertical: 20,
+              padding: 10,
+              width: "95%"
+            },
+            selectToggleText: {
+              fontFamily: "sourcepro-regular",
+              color: "#222",
+              opacity: 0.7
+            },
+            button: {
+              paddingVertical: 15
+            }
+          }}
+          iconRenderer={icon}
+          items={categoryItems}
+          hideSearch
+          single
+          confirmText="Select Question's Category"
+          showCancelButton
+          uniqueKey="id"
+          showChips={false}
+          selectText="Select Category"
+          onSelectedItemsChange={items => setCategory(items)}
+          selectedItems={category}
         />
         <AskType>
           <Label>Ask Anonymously</Label>
@@ -102,6 +162,12 @@ const AskQuestion = ({ navigation }) => {
     </>
   );
 };
+
+{
+  /* <Container
+        contentContainerStyle={{ alignItems: "center", paddingTop: 30 }}
+      > */
+}
 
 const Container = styled.View`
   flex: 1;

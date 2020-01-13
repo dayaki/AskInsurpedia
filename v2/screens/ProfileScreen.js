@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import { Alert, AsyncStorage } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,9 +6,11 @@ import { Ionicons } from "@expo/vector-icons";
 const ProfileScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
 
-  AsyncStorage.getItem("userData").then(data => {
-    setUser(JSON.parse(data));
-  });
+  useEffect(() => {
+    AsyncStorage.getItem("userData").then(data => {
+      setUser(JSON.parse(data));
+    });
+  }, []);
 
   const handleNav = type => {
     if (type === "activity") {

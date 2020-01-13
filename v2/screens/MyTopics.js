@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components/native";
+import Toast, { DURATION } from "react-native-easy-toast";
+import { AsyncStorage } from "react-native";
 import { Switch } from "react-native";
+import { API_URL } from "../constants/Helper";
+import { LoadingModal } from "../components";
 
 const MyTopics = () => {
   const [categories, setCategories] = useState([
@@ -10,16 +14,73 @@ const MyTopics = () => {
     { name: "Wills and Trusts", checked: false },
     { name: "Pensions", checked: true }
   ]);
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const toast = useRef(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem("userData").then(value => {
+      const tempData = JSON.parse(value);
+      setUser(tempData);
+      const tempCategories = [...categories];
+      let category = tempData.category.split(",");
+      category.forEach(elem => {
+        let foundIndex = tempCategories.findIndex(x => x.name == elem);
+        tempCategories[foundIndex] = { name: elem, checked: true };
+      });
+      setCategories(tempCategories);
+    });
+  }, []);
 
   const onSwitched = (value, category) => {
-    const temp = categories;
+    const temp = [...categories];
     const tempIndex = temp.findIndex(el => el.name === category.name);
-    temp[tempIndex].checked = value; //{ name: category.name, checked: value };
+    temp[tempIndex].checked = value;
     setCategories(temp);
+  };
+
+  const update = () => {
+    let NewCategories = [];
+    categories.filter(elem => {
+      if (elem.checked === true) {
+        NewCategories.push(elem.name);
+      }
+    });
+    if (NewCategories.length === 0) {
+      toast.current.show("You need to subscribe to least one category.");
+    } else {
+      setLoading(true);
+      fetch(`${API_URL}user/category/update`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          category: NewCategories.toString()
+        })
+      })
+        .then(temp => temp.json())
+        .then(data => {
+          if (data.status === "success") {
+            AsyncStorage.setItem("userData", JSON.stringify(data.data)).then(
+              _ => {
+                setLoading(false);
+                toast.current.show("Categories updated successfully.");
+              }
+            );
+          }
+        });
+    }
   };
 
   return (
     <Container>
+      <LoadingModal
+        visible={loading}
+        onClose={() => setLoading(false)}
+        loadingText="Updating your preference..."
+      />
       <Intro>
         Select the categories of questions you are interested in, to personalize
         your feed.
@@ -37,9 +98,10 @@ const MyTopics = () => {
         </Switcher>
       ))}
 
-      <Button>
+      <Button activeOpacity={0.8} onPress={update}>
         <ButtonText>Update Categories</ButtonText>
       </Button>
+      <Toast ref={toast} />
     </Container>
   );
 };
