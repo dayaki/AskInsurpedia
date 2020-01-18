@@ -1,104 +1,50 @@
 {
-  "name": "askinsurpedia",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
-  "private": true,
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
-    "lint": "ionic-app-scripts lint",
-    "ionic:watch:before": "ionic2-custom-icons",
-    "ionic:build:before": "ionic2-custom-icons"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "test": "jest --watchAll"
   },
-  "config": {
-    "ionic_copy": "./config/copy.config.js",
-    "ionic_sass": "./config/sass.config.js",
-    "custom_icons": "./config/custom-icons.config.js",
-    "ionic_purge_unused_fonts": false
+  "jest": {
+    "preset": "jest-expo"
   },
   "dependencies": {
-    "@angular/animations": "5.2.9",
-    "@angular/common": "5.2.9",
-    "@angular/compiler": "5.2.9",
-    "@angular/compiler-cli": "5.2.9",
-    "@angular/core": "5.2.9",
-    "@angular/forms": "5.2.9",
-    "@angular/http": "5.2.9",
-    "@angular/platform-browser": "5.2.9",
-    "@angular/platform-browser-dynamic": "5.2.9",
-    "@ionic-native/app-rate": "4.9.1",
-    "@ionic-native/camera": "4.9.1",
-    "@ionic-native/core": "4.9.1",
-    "@ionic-native/facebook": "4.9.1",
-    "@ionic-native/google-plus": "4.9.1",
-    "@ionic-native/keyboard": "4.9.1",
-    "@ionic-native/linkedin": "4.9.1",
-    "@ionic-native/social-sharing": "4.9.1",
-    "@ionic-native/splash-screen": "4.9.1",
-    "@ionic-native/status-bar": "4.9.1",
-    "@ionic-native/toast": "4.9.1",
-    "@ionic/pro": "1.0.20",
-    "@ionic/storage": "2.1.3",
-    "@yellowspot/ng-truncate": "^1.4.0",
-    "cordova-android": "7.0.0",
-    "cordova-plugin-camera": "^4.0.3",
-    "cordova-plugin-device": "^2.0.1",
-    "cordova-plugin-facebook4": "^1.9.1",
-    "cordova-plugin-googleplus": "^5.3.0",
-    "cordova-plugin-ionic-keyboard": "^2.0.5",
-    "cordova-plugin-ionic-webview": "^1.1.16",
-    "cordova-plugin-linkedin": "^1.2.1",
-    "cordova-plugin-splashscreen": "^5.0.2",
-    "cordova-plugin-statusbar": "^2.4.2",
-    "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-plugin-x-socialsharing": "^5.3.2",
-    "cordova-plugin-x-toast": "^2.6.2",
-    "es6-promise-plugin": "^4.2.2",
-    "ionic-angular": "3.9.2",
-    "ionic-plugin-keyboard": "^2.2.1",
-    "ionic2-custom-icons": "^0.5.1",
-    "ionicons": "3.0.0",
-    "ngx-moment": "^2.0.0",
-    "rxjs": "5.5.8",
-    "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.20"
+    "@expo/vector-icons": "~10.0.0",
+    "@react-native-community/datetimepicker": "2.1.0",
+    "expo": "~36.0.0",
+    "expo-app-auth": "~8.0.0",
+    "expo-asset": "~8.0.0",
+    "expo-constants": "~8.0.0",
+    "expo-facebook": "~8.0.0",
+    "expo-font": "~8.0.0",
+    "expo-google-app-auth": "^8.0.0",
+    "expo-google-sign-in": "~8.0.0",
+    "expo-sharing": "~8.0.0",
+    "lottie-react-native": "~2.6.1",
+    "moment": "^2.24.0",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-easy-toast": "^1.2.0",
+    "react-native-gesture-handler": "~1.5.0",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-render-html": "^4.2.0",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-sectioned-multi-select": "^0.7.6",
+    "react-native-svg": "9.13.3",
+    "react-native-webview": "7.4.3",
+    "react-navigation": "~4.0.10",
+    "react-navigation-stack": "^1.10.3",
+    "react-navigation-tabs": "~2.6.2",
+    "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.1.10",
-    "typescript": "~2.6.2"
+    "@babel/core": "^7.0.0",
+    "babel-preset-expo": "~8.0.0",
+    "jest-expo": "~36.0.1"
   },
-  "description": "An Ionic project",
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-facebook4": {
-        "APP_ID": "413867365740794",
-        "APP_NAME": "AskInsurpedia"
-      },
-      "cordova-plugin-x-socialsharing": {
-        "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
-      },
-      "cordova-plugin-camera": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
-      "cordova-plugin-x-toast": {},
-      "cordova-plugin-statusbar": {},
-      "cordova-plugin-whitelist": {},
-      "cordova-plugin-device": {},
-      "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.496024214098-729ocu41i8m5n3raf03kmpro376a3e1k",
-        "PLAY_SERVICES_VERSION": "11.8.0"
-      },
-      "cordova-plugin-linkedin": {
-        "APP_ID": "4855424"
-      },
-      "ionic-plugin-keyboard": {}
-    },
-    "platforms": [
-      "android"
-    ]
-  }
+  "private": true
 }
