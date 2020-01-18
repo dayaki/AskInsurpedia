@@ -5,6 +5,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import Landing from "../screens/Landing";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
+import FirstTime from "../screens/FirstTime";
+import ForgotPass from "../screens/ForgotPass";
 import MainTabNavigator from "./MainTabNavigator";
 
 const AuthStack = createStackNavigator(
@@ -23,6 +25,19 @@ const AuthStack = createStackNavigator(
       screen: Register,
       navigationOptions: {
         title: "Create an account"
+      }
+    },
+    FirstTimeOptions: {
+      screen: FirstTime,
+      navigationOptions: () => ({
+        title: "One Last Step",
+        headerLeft: null
+      })
+    },
+    ForgotPass: {
+      screen: ForgotPass,
+      navigationOptions: {
+        title: "Password Recovery"
       }
     }
   },

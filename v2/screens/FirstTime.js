@@ -1,25 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Switch, BackHandler } from "react-native";
 import styled from "styled-components/native";
+import { API_URL } from "../constants/Helper";
+import { AsyncStorage } from "react-native";
+import { LoadingModal } from "../components";
 
 const FirstTime = ({ navigation }) => {
-  const [selected, setSelected] = useState([]);
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([
+    { name: "Insurance", checked: false },
+    { name: "Annuity and Investments", checked: false },
+    { name: "Contracts and Liabilities", checked: false },
+    { name: "Wills and Trusts", checked: false },
+    { name: "Pensions", checked: false }
+  ]);
 
-  categories = [
-    { name: "Insurance" },
-    { name: "Annuity and Investments" },
-    { name: "Contracts and Liabilities" },
-    { name: "Wills and Trusts" },
-    { name: "Pensions" }
-  ];
+  useEffect(() => {
+    AsyncStorage.getItem("userData").then(value => {
+      if (value !== null) {
+        setUser(JSON.parse(value));
+      }
+    });
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      console.log("Back button is pressed");
+      return true;
+    });
+  }, []);
 
-  const onSwitched = category => {
-    const temp = selected;
-    temp.push(category);
-    setSelected(temp);
+  const onSwitched = (value, category) => {
+    const temp = [...categories];
+    const tempIndex = temp.findIndex(el => el.name === category.name);
+    temp[tempIndex].checked = value;
+    setCategories(temp);
+  };
+
+  const onContinue = () => {
+    let NewCategories = [];
+    categories.filter(elem => {
+      if (elem.checked === true) {
+        NewCategories.push(elem.name);
+      }
+    });
+    if (NewCategories.length < 1) {
+      toast.current.show("You need to subscribe to least two category.");
+    } else {
+      setLoading(true);
+      fetch(`${API_URL}user/category/update`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          category: NewCategories.toString()
+        })
+      })
+        .then(temp => temp.json())
+        .then(data => {
+          setLoading(false);
+          navigation.navigate("Main");
+        })
+        .catch(err => {
+          setLoading(false);
+          console.log("err", err);
+        });
+    }
   };
 
   return (
     <Container>
+      <LoadingModal
+        visible={loading}
+        loadingText="Updating your preference..."
+      />
       <Intro>
         You’re almost done! Follow at least 2 categories to personalize your
         feed.
@@ -32,13 +86,13 @@ const FirstTime = ({ navigation }) => {
           <Label>{category.name}</Label>
           <Switch
             value={category.checked}
-            onValueChange={_ => onSwitched(category.name)}
+            onValueChange={e => onSwitched(e, category)}
           />
         </Switcher>
       ))}
 
-      <Button>
-        <ButtonText>Update Categories</ButtonText>
+      <Button activeOpacity={0.8} onPress={onContinue}>
+        <ButtonText>Continue</ButtonText>
       </Button>
     </Container>
   );
@@ -46,6 +100,7 @@ const FirstTime = ({ navigation }) => {
 
 const Container = styled.View`
   flex: 1;
+  background: #f2f2f2;
 `;
 const Intro = styled.Text`
   font-family: "sourcepro-regular";

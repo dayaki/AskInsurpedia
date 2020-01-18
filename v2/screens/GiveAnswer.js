@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components/native";
 import { AsyncStorage } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,12 +10,14 @@ const GiveAnswer = ({ navigation }) => {
   const question = navigation.getParam("question");
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState([]);
   const toast = useRef(null);
-  let user = [];
 
-  AsyncStorage.getItem("userData").then(data => {
-    user = JSON.parse(data);
-  });
+  useEffect(() => {
+    AsyncStorage.getItem("userData").then(data => {
+      setUser(JSON.parse(data));
+    });
+  }, []);
 
   const onSubmit = async () => {
     if (comment === "") {
@@ -79,7 +81,7 @@ const GiveAnswer = ({ navigation }) => {
 
 const Container = styled.View`
   flex: 1;
-  padding-top: 15;
+  padding-top: 30;
 `;
 const Header = styled.View`
   flex-direction: row;
@@ -89,13 +91,20 @@ const Header = styled.View`
   border-bottom-color: rgba(206, 206, 206, 0.6);
   border-bottom-width: 1;
 `;
-const CloseBtn = styled.TouchableOpacity``;
+const CloseBtn = styled.TouchableOpacity`
+  padding: 5px;
+`;
 const Title = styled.Text`
   font-family: "song-myung";
   font-size: 14;
   color: rgb(163, 163, 163);
 `;
-const SubmitBtn = styled.TouchableOpacity``;
+const SubmitBtn = styled.TouchableOpacity`
+  padding: 5px;
+  /* background: rgb(121, 11, 11);
+  padding: 6px 15px;
+  border-radius: 10; */
+`;
 const SubmitBtnText = styled.Text`
   font-family: "song-myung";
   color: rgb(121, 11, 11);

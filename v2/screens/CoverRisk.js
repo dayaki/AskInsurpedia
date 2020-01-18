@@ -113,6 +113,11 @@ const CoverRisk = ({ navigation }) => {
     }
   };
 
+  const onDateChange = date => {
+    setShowPicker(false);
+    setDate(date);
+  };
+
   return (
     <Container contentContainerStyle={{ padding: 25, paddingTop: 20 }}>
       <LoadingModal loadingText="Please wait..." visible={loading} />
@@ -173,7 +178,7 @@ const CoverRisk = ({ navigation }) => {
           is24Hour={true}
           minimumDate={new Date()}
           display="default"
-          onChange={(event, date) => setDate(date)}
+          onChange={(event, date) => onDateChange(date)}
         />
       )}
       <Button activeOpacity={0.9} onPress={postUpdate}>

@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components/native";
 import { AsyncStorage } from "react-native";
-import Toast, { DURATION } from "react-native-easy-toast";
-// import Input from "../components/Input";
+import Toast from "react-native-easy-toast";
 import { API_URL } from "../constants/Helper";
 import { LoadingModal, Input } from "../components";
 
@@ -36,6 +35,7 @@ const Register = ({ navigation }) => {
           if (data.status === "success") {
             AsyncStorage.setItem("userData", JSON.stringify(data.data)).then(
               _ => {
+                sendMail(data.data.email);
                 setLoading(false);
                 navigation.navigate("FirstTimeOptions");
               }
@@ -47,6 +47,16 @@ const Register = ({ navigation }) => {
           console.log("err", err);
         });
     }
+  };
+
+  const sendMail = async email => {
+    const data = await fetch(`${API_URL}mail/later`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    });
   };
 
   return (

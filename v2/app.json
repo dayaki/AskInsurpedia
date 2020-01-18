@@ -1,16 +1,12 @@
 {
   "expo": {
     "name": "AskInsurpedia",
-    "slug": "v2",
-    "privacy": "public",
+    "slug": "askinsurpedia-v2",
+    "privacy": "unlisted",
     "sdkVersion": "36.0.0",
-    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.askinsurpedia.mobile"
-    },
+    "platforms": ["android"],
     "android": {
       "package": "com.askinsurpedia.mobile",
       "googleServicesFile": "./google-services.json"
@@ -19,11 +15,11 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#fc5185"
+      "backgroundColor": "#d22959"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": ["assets/images/*"]
   }
 }

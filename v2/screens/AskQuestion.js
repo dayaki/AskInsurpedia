@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components/native";
+import Toast from "react-native-easy-toast";
 import { Switch, AsyncStorage, StyleSheet, View } from "react-native";
 import {
   MaterialCommunityIcons,
   FontAwesome,
-  Ionicons,
-  AntDesign
+  Ionicons
 } from "@expo/vector-icons";
-import PickerBox from "react-native-picker-box";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { LoadingModal } from "../components";
 import { API_URL } from "../constants/Helper";
@@ -17,7 +16,8 @@ const AskQuestion = ({ navigation }) => {
   const [category, setCategory] = useState([]);
   const [anon, setAnon] = useState(false);
   const [loading, setLoading] = useState(false);
-  let user = [];
+  const [user, setUser] = useState([]);
+  const toast = useRef(null);
 
   const categoryItems = [
     { name: "Insurance", id: 1 },
@@ -59,9 +59,9 @@ const AskQuestion = ({ navigation }) => {
 
   useEffect(() => {
     AsyncStorage.getItem("userData").then(data => {
-      user = JSON.parse(data);
+      setUser(JSON.parse(data));
     });
-  });
+  }, []);
 
   const onSubmit = async () => {
     const tempCategory = [];
@@ -70,39 +70,42 @@ const AskQuestion = ({ navigation }) => {
         tempCategory.push(el.name);
       }
     });
-    setLoading(true);
-    const temp = await fetch(`${API_URL}questions/post`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        user: user.id,
-        question: question,
-        category: tempCategory.toString(),
-        anonymous: anon
-      })
-    });
-
-    const result = await temp.json();
-    AsyncStorage.setItem("questions", JSON.stringify(result.data))
-      .then(_ => {
-        setLoading(false);
-        navigation.goBack();
-      })
-      .catch(err => {
-        console.log("fetch", err);
+    if (question === "" || question.length < 10) {
+      toast.current.show("Length of your question is too small");
+    } else if (tempCategory.length === 0) {
+      toast.current.show("Please choose category for your question");
+    } else {
+      setLoading(true);
+      const temp = await fetch(`${API_URL}questions/post`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user: user.id,
+          question: question,
+          category: tempCategory.toString(),
+          anonymous: anon
+        })
       });
+
+      const result = await temp.json();
+      AsyncStorage.setItem("questions", JSON.stringify(result.data))
+        .then(_ => {
+          setLoading(false);
+          navigation.goBack();
+        })
+        .catch(err => {
+          setLoading(false);
+          console.log("fetch", err);
+        });
+    }
   };
 
   return (
     <>
-      <LoadingModal
-        visible={loading}
-        onClose={() => setLoading(false)}
-        loadingText="Please wait..."
-      />
+      <LoadingModal visible={loading} loadingText="Please wait..." />
       <Container>
         <Title>Ask your question here!</Title>
         <TextArea
@@ -159,6 +162,7 @@ const AskQuestion = ({ navigation }) => {
       <Close activeOpacity={0.8} onPress={() => navigation.goBack()}>
         <Ionicons name="md-close" size={16} color="#000" />
       </Close>
+      <Toast ref={toast} />
     </>
   );
 };

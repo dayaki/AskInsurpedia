@@ -8,14 +8,15 @@ const MyActivity = ({ navigation }) => {
 
   useEffect(() => {
     AsyncStorage.getItem("questions").then(data => {
-      const questionss = JSON.parse(data);
       AsyncStorage.getItem("userData").then(value => {
+        const questionss = JSON.parse(data);
         const user = JSON.parse(value);
         const result = questionss.filter(el => el.user_id == user.id);
+        console.log(questionss, user, result);
         result.length > 0 ? setQuestions(result) : setQuestions([]);
       });
     });
-  });
+  }, []);
 
   const openLink = question => {
     navigation.navigate("Details", { question });

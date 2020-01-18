@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, Switch } from "react-native";
 import * as Facebook from "expo-facebook";
-import { GoogleSignIn } from "expo-google-sign-in";
+import * as GoogleSignIn from "expo-google-sign-in";
 import IconButton from "../components/IconButton";
 import LoadingModal from "../components/LoadingModal";
 import { API_URL } from "../constants/Helper";
@@ -79,6 +79,55 @@ const Landing = ({ navigation }) => {
     });
   };
 
+  const gLogin = async () => {
+    GoogleSignIn.signInAsync().then(({ type, user }) => {
+      if (type === "success") {
+        setLoading(true);
+        fetch(`${API_URL}google`, {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            fname: user.firstName,
+            lname: user.lastName,
+            email: user.email,
+            gid: user.uid,
+            photo: user.photoURL
+          })
+        })
+          .then(temp => temp.json())
+          .then(result => {
+            setLoading(false);
+            AsyncStorage.setItem(
+              "userData",
+              JSON.stringify(result.data[0])
+            ).then(_ => {
+              if (result.firstTime) {
+                sendMail(result.data.email);
+                setLoading(false);
+                navigation.navigate("FirstTimeOptions");
+              } else {
+                setLoading(false);
+                navigation.navigate("Main");
+              }
+            });
+          })
+          .catch(err => {
+            setLoading(false);
+            alert(JSON.stringify(err));
+          });
+      }
+    });
+  };
+
+  const openLogin = () => {
+    navigation.navigate("Login");
+  };
+  const openSignup = () => {
+    navigation.navigate("Signup");
+  };
+
   const sendMail = async email => {
     const data = await fetch(`${API_URL}mail/later`, {
       method: "post",
@@ -87,29 +136,6 @@ const Landing = ({ navigation }) => {
       },
       body: JSON.stringify({ email })
     });
-  };
-
-  const gLogin = async () => {
-    // try {
-    //   await GoogleSignIn.initAsync({ clientId: '<YOUR_IOS_CLIENT_ID>' });
-    // } catch ({ message }) {
-    //   alert('GoogleSignIn.initAsync(): ' + message);
-    // }
-    try {
-      await GoogleSignIn.askForPlayServicesAsync();
-      const { type, user } = await GoogleSignIn.signInAsync();
-      if (type === "success") {
-        this._syncUserWithStateAsync();
-      }
-    } catch ({ message }) {
-      alert("login: Error:" + message);
-    }
-  };
-  const openLogin = () => {
-    navigation.navigate("Login");
-  };
-  const openSignup = () => {
-    navigation.navigate("Signup");
   };
 
   return (

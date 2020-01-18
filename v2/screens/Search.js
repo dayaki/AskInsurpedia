@@ -71,13 +71,13 @@ const Search = ({ navigation }) => {
 };
 
 const Container = styled.View`
-  padding-top: 10;
+  padding-top: 20;
 `;
 const Header = styled.View`
   justify-content: flex-start;
 `;
 const CloseBtn = styled.TouchableOpacity`
-  padding: 10px;
+  padding: 20px;
 `;
 const SearchInput = styled.TextInput`
   align-self: center;

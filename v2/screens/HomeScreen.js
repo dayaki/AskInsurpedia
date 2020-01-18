@@ -5,8 +5,8 @@ import { Ionicons } from "@expo/vector-icons";
 import Avatar from "../components/Avatar";
 import HomeQuestion from "../components/HomeQuestion";
 import ExpertProfile from "../components/ExpertProfile";
-import { BookIcon, CommentIcon } from "../constants/Icons";
 import LoadingModal from "../constants/LoadingModal";
+import { API_URL } from "../constants/Helper";
 
 const HomeScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
@@ -63,7 +63,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const fetchQuestions = async () => {
-    fetch("http://backend.askinsurpedia.ng/public/api/questions/all")
+    fetch(`${API_URL}questions/all`)
       .then(data => data.json())
       .then(results => {
         AsyncStorage.setItem("questions", JSON.stringify(results))
@@ -115,8 +115,10 @@ const HomeScreen = ({ navigation }) => {
           <>
             <Header>
               <User>
-                <Avatar source={user.avatar} />
-                <Username>{user && user.name}</Username>
+                <Avatar source={user.photo} />
+                <Username>
+                  {user.fname} {user?.lname?.slice(0, 1)}.
+                </Username>
               </User>
               <AskQuestion activeOpacity={0.8} onPress={openAskQuestion}>
                 <AskQuestionText>What is your question?</AskQuestionText>

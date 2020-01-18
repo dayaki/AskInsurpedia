@@ -53,8 +53,8 @@ const ProfileScreen = ({ navigation }) => {
       <Profile>
         <Avatar
           source={
-            user.avatar
-              ? { uri: user.avatar }
+            user.photo
+              ? { uri: user.photo }
               : require("../assets/images/user-photo.png")
           }
         />

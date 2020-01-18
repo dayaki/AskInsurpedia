@@ -5,7 +5,7 @@ import LottieView from "lottie-react-native";
 const LoadingModal = ({ style }) => {
   return (
     <Container style={style}>
-      <LottieView
+      {/* <LottieView
         style={{
           width: 200,
           height: 200
@@ -13,7 +13,7 @@ const LoadingModal = ({ style }) => {
         source={require("../assets/loading.json")}
         autoPlay
         loop
-      />
+      /> */}
     </Container>
   );
 };

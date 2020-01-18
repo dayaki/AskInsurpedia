@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "997352758733-rdlmqqfs3lq3kps1t0s36idbufu3rpc7.apps.googleusercontent.com",
+          "client_id": "997352758733-0akm99a2qb5jtlcp2h6nl0131849r4gq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.askinsurpedia.mobile",
@@ -38,6 +38,13 @@
             {
               "client_id": "997352758733-gdimn32jqni90dvt5d87l1vqp7h970ua.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "997352758733-g41frfjodf7cp8c6rtb4tgfrev3a2tsq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.askinsurpedia.mobile"
+              }
             }
           ]
         }
