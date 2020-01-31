@@ -13,6 +13,7 @@ log.txt
 npm-debug.log*
 *.keystore
 google-services.json
+*.plist
 
 .idea/
 .sourcemaps/
