@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>997352758733-g41frfjodf7cp8c6rtb4tgfrev3a2tsq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.997352758733-g41frfjodf7cp8c6rtb4tgfrev3a2tsq</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>997352758733-mrebo2j7vbumfh6as9356ijk52uea7u6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBsnluO0jKVA2Gf2Bfsu5RQk4K5c_MYvBY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>997352758733</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.askinsurpedia.mobile</string>
+	<key>PROJECT_ID</key>
+	<string>askinsurpedia-324a2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>askinsurpedia-324a2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:997352758733:ios:5310831316ea328222f884</string>
+	<key>DATABASE_URL</key>
+	<string>https://askinsurpedia-324a2.firebaseio.com</string>
+</dict>
+</plist>

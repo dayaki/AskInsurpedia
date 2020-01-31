@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { RefreshControl, AsyncStorage } from "react-native";
 import QuestionTag from "../components/QuestionTags";
 import LoadingModal from "../constants/LoadingModal";
+import { API_URL } from "../constants/Helper";
 
 const QuestionScreen = props => {
   const [questions, setQuestions] = useState([]);
@@ -29,7 +30,7 @@ const QuestionScreen = props => {
   };
 
   const fetchQuestions = async () => {
-    fetch("http://backend.askinsurpedia.ng/public/api/questions/all")
+    fetch(`${API_URL}questions/all`)
       .then(data => data.json())
       .then(results => {
         AsyncStorage.setItem("questions", JSON.stringify(results))

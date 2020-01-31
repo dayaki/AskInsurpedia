@@ -4,12 +4,21 @@
     "slug": "askinsurpedia-v2",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "orientation": "portrait",
     "platforms": ["android"],
     "android": {
       "package": "com.askinsurpedia.mobile",
+      "versionCode": 10005,
       "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.askinsurpedia.mobile",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.997352758733-g41frfjodf7cp8c6rtb4tgfrev3a2tsq"
+        }
+      }
     },
     "icon": "./assets/images/icon.png",
     "splash": {

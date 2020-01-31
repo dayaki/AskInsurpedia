@@ -80,45 +80,56 @@ const Landing = ({ navigation }) => {
   };
 
   const gLogin = async () => {
-    GoogleSignIn.signInAsync().then(({ type, user }) => {
-      if (type === "success") {
-        setLoading(true);
-        fetch(`${API_URL}google`, {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
+    GoogleSignIn.signInAsync({
+      clientId:
+        "997352758733-g41frfjodf7cp8c6rtb4tgfrev3a2tsq.apps.googleusercontent.com"
+    })
+      .then(({ type, user }) => {
+        if (type === "success") {
+          setLoading(true);
+          const userData = {
             fname: user.firstName,
             lname: user.lastName,
             email: user.email,
             gid: user.uid,
             photo: user.photoURL
+          };
+          fetch(`${API_URL}google`, {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
           })
-        })
-          .then(temp => temp.json())
-          .then(result => {
-            setLoading(false);
-            AsyncStorage.setItem(
-              "userData",
-              JSON.stringify(result.data[0])
-            ).then(_ => {
-              if (result.firstTime) {
-                sendMail(result.data.email);
-                setLoading(false);
-                navigation.navigate("FirstTimeOptions");
-              } else {
-                setLoading(false);
-                navigation.navigate("Main");
-              }
+            .then(temp => temp.json())
+            .then(result => {
+              setLoading(false);
+              AsyncStorage.setItem(
+                "userData",
+                JSON.stringify(result.data[0])
+              ).then(_ => {
+                if (result.firstTime) {
+                  sendMail(result.data.email);
+                  setLoading(false);
+                  navigation.navigate("FirstTimeOptions");
+                } else {
+                  setLoading(false);
+                  navigation.navigate("Main");
+                }
+              });
+            })
+            .catch(err => {
+              setLoading(false);
+              alert("error here...");
+              alert(JSON.stringify(err));
             });
-          })
-          .catch(err => {
-            setLoading(false);
-            alert(JSON.stringify(err));
-          });
-      }
-    });
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        alert("Main catch");
+        alert(JSON.stringify(err));
+      });
   };
 
   const openLogin = () => {

@@ -4,12 +4,13 @@ import { Text } from "react-native";
 import { WebView } from "react-native-webview";
 import HTML from "react-native-render-html";
 import NoContent from "../components/NoContent";
+import { API_URL } from "../constants/Helper";
 
 const BlogScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    fetch("http://backend.askinsurpedia.ng/public/api/articles")
+    fetch(`${API_URL}articles`)
       .then(res => res.json())
       .then(data => {
         // console.log("res", data);

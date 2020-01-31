@@ -1,1 +1,1 @@
-export const API_URL = "http://backend.askinsurpedia.ng/public/api/";
+export const API_URL = "https://backend.askinsurpedia.ng/public/api/";
