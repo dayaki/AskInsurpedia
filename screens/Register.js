@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components/native";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, KeyboardAvoidingView, Platform } from "react-native";
 import Toast from "react-native-easy-toast";
 import { API_URL } from "../constants/Helper";
 import { LoadingModal, Input } from "../components";
@@ -18,28 +18,32 @@ const Register = ({ navigation }) => {
       toast.current.show("All fields are required.");
     } else {
       setLoading(true);
+      const userData = {
+        fname,
+        lname,
+        email,
+        password
+      };
       fetch(`${API_URL}signup`, {
         method: "post",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          fname,
-          lname,
-          email,
-          password
-        })
+        body: JSON.stringify(userData)
       })
         .then(temp => temp.json())
-        .then(data => {
-          if (data.status === "success") {
-            AsyncStorage.setItem("userData", JSON.stringify(data.data)).then(
+        .then(result => {
+          if (result.status === "exist") {
+            setLoading(false);
+            toast.current.show("Email address is already in use.");
+          } else if (result.status === "success") {
+            AsyncStorage.setItem("userData", JSON.stringify(result.data)).then(
               _ => {
-                sendMail(data.data.email);
                 setLoading(false);
                 navigation.navigate("FirstTimeOptions");
               }
             );
+            setLoading(false);
           }
         })
         .catch(err => {
@@ -49,69 +53,65 @@ const Register = ({ navigation }) => {
     }
   };
 
-  const sendMail = async email => {
-    const data = await fetch(`${API_URL}mail/later`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email })
-    });
-  };
-
   return (
-    <Container>
-      <LoadingModal
-        visible={loading}
-        onClose={() => setLoading(false)}
-        loadingText="Creating your account..."
-      />
-      <Input
-        label="First name"
-        placeholder="First name"
-        style={{ marginBottom: 50 }}
-        value={fname}
-        onChange={text => setFname(text)}
-      />
-      <Input
-        label="Last name"
-        placeholder="Last name"
-        style={{ marginBottom: 50 }}
-        value={lname}
-        onChange={text => setLname(text)}
-      />
-      <Input
-        label="Email"
-        placeholder="Email address"
-        style={{ marginBottom: 50 }}
-        value={email}
-        onChange={text => setEmail(text)}
-      />
-      <Input
-        label="Password"
-        placeholder="********"
-        type="password"
-        value={password}
-        onChange={text => setPassword(text)}
-      />
-      <Button activeOpacity={0.9} onPress={signup}>
-        <ButtonText>Create an account</ButtonText>
-      </Button>
-      <Toast ref={toast} />
+    <Container showsVerticalScrollIndicator={false}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+      >
+        <LoadingModal
+          visible={loading}
+          onClose={() => setLoading(false)}
+          loadingText="Creating your account..."
+        />
+        <Input
+          label="First name"
+          placeholder="First name"
+          style={{ marginBottom: 50 }}
+          value={fname}
+          onChange={text => setFname(text)}
+        />
+        <Input
+          label="Last name"
+          placeholder="Last name"
+          style={{ marginBottom: 50 }}
+          value={lname}
+          onChange={text => setLname(text)}
+        />
+        <Input
+          label="Email"
+          placeholder="Email address"
+          style={{ marginBottom: 50 }}
+          value={email}
+          type="email"
+          onChange={text => setEmail(text)}
+        />
+        <Input
+          label="Password"
+          placeholder="********"
+          type="password"
+          value={password}
+          onChange={text => setPassword(text)}
+        />
+        <Button activeOpacity={0.9} onPress={signup}>
+          <ButtonText>Create an account</ButtonText>
+        </Button>
+        <Toast ref={toast} />
+      </KeyboardAvoidingView>
     </Container>
   );
 };
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
   padding: 25px;
-  padding-top: 20;
+  padding-top: 20px;
 `;
 const Button = styled.TouchableOpacity`
   background: #364f6b;
   width: 70%;
   height: 60;
-  margin-top: 50;
+  margin: 50px 0px;
   justify-content: center;
   align-items: center;
   align-self: center;

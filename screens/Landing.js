@@ -150,7 +150,7 @@ const Landing = ({ navigation }) => {
   };
 
   return (
-    <Container>
+    <Container showsVerticalScrollIndicator={false}>
       <LoadingModal
         visible={loading}
         onClose={() => setLoading(false)}
@@ -195,7 +195,7 @@ const Landing = ({ navigation }) => {
   );
 };
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
   background-color: #fc5185;
   padding-top: 100;

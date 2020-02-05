@@ -8,6 +8,7 @@ const Input = props => (
       placeholder={props.placeholder}
       secureTextEntry={props.type === "password" ? true : false}
       autoCapitalize="none"
+      keyboardType={props.type === "email" ? "email-address" : "default"}
       value={props.value}
       onChangeText={props.onChange}
     />
