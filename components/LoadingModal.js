@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal, SafeAreaView } from "react-native";
 import styled from "styled-components/native";
-import Lottie from "lottie-react-native";
 
 const LoadingModal = ({ visible, loadingText, onClose }) => (
   <SafeAreaView>
@@ -13,15 +12,6 @@ const LoadingModal = ({ visible, loadingText, onClose }) => (
     >
       <ModalWrapper>
         <Loading>
-          <Lottie
-            source={require("../assets/stopwatch.json")}
-            style={{
-              width: 200,
-              height: 200
-            }}
-            autoPlay
-            loop
-          />
           <LoadingText>{loadingText}</LoadingText>
         </Loading>
       </ModalWrapper>
