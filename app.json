@@ -4,12 +4,12 @@
     "slug": "askinsurpedia-v2",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "platforms": ["android"],
     "android": {
       "package": "com.askinsurpedia.mobile",
-      "versionCode": 10006,
+      "versionCode": 10007,
       "googleServicesFile": "./google-services.json"
     },
     "ios": {
